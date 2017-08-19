@@ -60,5 +60,27 @@
         }
       }]
     ]
+  }, {
+    "target_name": "core",
+    "include_dirs": [
+      "<!(node -e \"require('nan')\")"
+    ],
+    "sources": [
+      "./src/entry.cc",
+      "./src/efsw_core.cc",
+      "./src/efsw_core_listener.cc"
+    ],
+    "dependencies": [
+      "efsw"
+    ],
+    "conditions": [
+      ["OS==\"mac\"", {
+        "xcode_settings": {
+          "OTHER_LDFLAGS": [
+            "-framework CoreFoundation -framework CoreServices"
+          ]
+        }
+      }]
+    ]
   }]
 }
