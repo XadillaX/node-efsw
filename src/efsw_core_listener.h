@@ -15,6 +15,7 @@ namespace efsw_core {
 
 #define Watch watch
 #define AddWatch addWatch
+#define RemoveWatch removeWatch
 #define HandleFileAction handleFileAction
 #define GetLastErrorLog getLastErrorLog
 #define WatchId WatchID

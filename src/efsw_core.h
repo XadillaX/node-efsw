@@ -22,7 +22,12 @@ private:
     explicit EFSWCore(const char* path, Nan::Callback* listener);
     ~EFSWCore();
 
+    efsw::WatchId Start();
+    void Stop();
+
     static NAN_METHOD(New);
+    static NAN_METHOD(Start);
+    static NAN_METHOD(Stop);
 
 private:
     std::string path;
