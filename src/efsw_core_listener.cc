@@ -32,6 +32,9 @@ void OnAsyncClosed(uv_handle_t* handle)
 void OnEFSWEvent(uv_async_t* handle)
 {
     Nan::HandleScope scope;
+
+    Nan::AsyncResource resource("efsw:core_listener.on_efsw_event");
+
     AsyncArgs* data = (AsyncArgs*)handle->data;
     Local<Value> argv[] = {
         Nan::New(data->dir.c_str()).ToLocalChecked(),
@@ -39,7 +42,7 @@ void OnEFSWEvent(uv_async_t* handle)
         Nan::New(data->old_filename.c_str()).ToLocalChecked(),
         Nan::New(data->action)
     };
-    data->callback->Call(4, argv);
+    data->callback->Call(4, argv, &resource);
     uv_close((uv_handle_t*)handle, OnAsyncClosed);
 }
 
