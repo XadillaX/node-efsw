@@ -35,7 +35,10 @@ WatchId EFSWCore::Start()
     }
 
     WatchId ret = watcher->AddWatch(path.c_str(), &core_listener, true);
-    if(ret > 0) watch_id = ret;
+    if(ret > 0) {
+        watch_id = ret;
+        watcher->watch();
+    }
 
     return ret;
 }
