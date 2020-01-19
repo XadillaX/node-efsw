@@ -53,7 +53,10 @@ void EFSWCore::Stop()
 
 NAN_METHOD(EFSWCore::New)
 {
-    Nan::Utf8String path(info[0]->ToString());
+    v8::Isolate* isolate = info.GetIsolate();
+    Local<Context> context = isolate->GetCurrentContext();
+
+    Nan::Utf8String path(info[0]->ToString(context).ToLocalChecked());
     Nan::Callback* listener = new Nan::Callback(info[1].As<v8::Function>());
 
     EFSWCore* core = new EFSWCore(*path, listener);

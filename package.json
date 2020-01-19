@@ -22,6 +22,6 @@
   },
   "homepage": "https://github.com/XadillaX/node-efsw#readme",
   "dependencies": {
-    "nan": "^2.6.2"
+    "nan": "^2.14.0"
   }
 }
