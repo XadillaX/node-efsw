@@ -30,7 +30,7 @@ public:
             const std::string& dir,
             const std::string& filename,
             efsw::Action action,
-            std::string old_filename);
+            std::string old_filename = "");
 
 private:
     Nan::Callback* listener;

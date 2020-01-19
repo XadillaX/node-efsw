@@ -4,16 +4,19 @@
     "type": "static_library",
     "sources": [
       "./src/deps/efsw/src/efsw/Debug.cpp",
+      "./src/deps/efsw/src/efsw/DirWatcherGeneric.cpp",
       "./src/deps/efsw/src/efsw/DirectorySnapshot.cpp",
       "./src/deps/efsw/src/efsw/DirectorySnapshotDiff.cpp",
-      "./src/deps/efsw/src/efsw/DirWatcherGeneric.cpp",
       "./src/deps/efsw/src/efsw/FileInfo.cpp",
       "./src/deps/efsw/src/efsw/FileSystem.cpp",
       "./src/deps/efsw/src/efsw/FileWatcher.cpp",
+      "./src/deps/efsw/src/efsw/FileWatcherCWrapper.cpp",
       "./src/deps/efsw/src/efsw/FileWatcherFSEvents.cpp",
       "./src/deps/efsw/src/efsw/FileWatcherGeneric.cpp",
       "./src/deps/efsw/src/efsw/FileWatcherImpl.cpp",
       "./src/deps/efsw/src/efsw/FileWatcherInotify.cpp",
+      "./src/deps/efsw/src/efsw/FileWatcherKqueue.cpp",
+      "./src/deps/efsw/src/efsw/FileWatcherWin32.cpp",
       "./src/deps/efsw/src/efsw/Log.cpp",
       "./src/deps/efsw/src/efsw/Mutex.cpp",
       "./src/deps/efsw/src/efsw/String.cpp",
@@ -22,7 +25,9 @@
       "./src/deps/efsw/src/efsw/Watcher.cpp",
       "./src/deps/efsw/src/efsw/WatcherFSEvents.cpp",
       "./src/deps/efsw/src/efsw/WatcherGeneric.cpp",
-      "./src/deps/efsw/src/efsw/WatcherInotify.cpp"
+      "./src/deps/efsw/src/efsw/WatcherInotify.cpp",
+      "./src/deps/efsw/src/efsw/WatcherKqueue.cpp",
+      "./src/deps/efsw/src/efsw/WatcherWin32.cpp"
     ],
     "include_dirs": [
       "./src/deps/efsw/include",
@@ -30,26 +35,53 @@
     ],
     "conditions": [
       ["OS==\"win\"", {
+        "sources!": [
+          "./src/deps/efsw/src/efsw/WatcherKqueue.cpp",
+          "./src/deps/efsw/src/efsw/WatcherFSEvents.cpp",
+          "./src/deps/efsw/src/efsw/WatcherInotify.cpp",
+          "./src/deps/efsw/src/efsw/FileWatcherKqueue.cpp",
+          "./src/deps/efsw/src/efsw/FileWatcherInotify.cpp",
+          "./src/deps/efsw/src/efsw/FileWatcherFSEvents.cpp"
+        ],
         "sources": [
           "./src/deps/efsw/src/efsw/platform/win/FileSystemImpl.cpp",
           "./src/deps/efsw/src/efsw/platform/win/MutexImpl.cpp",
           "./src/deps/efsw/src/efsw/platform/win/SystemImpl.cpp",
-          "./src/deps/efsw/src/efsw/platform/win/ThreadImpl.cpp",
-          "./src/deps/efsw/src/efsw/FileWatcherWin32.cpp",
-          "./src/deps/efsw/src/efsw/WatcherWin32.cpp"
-        ]
+          "./src/deps/efsw/src/efsw/platform/win/ThreadImpl.cpp"
+        ],
       }],
       ["OS!=\"win\"", {
         "sources": [
           "./src/deps/efsw/src/efsw/platform/posix/FileSystemImpl.cpp",
           "./src/deps/efsw/src/efsw/platform/posix/MutexImpl.cpp",
           "./src/deps/efsw/src/efsw/platform/posix/SystemImpl.cpp",
-          "./src/deps/efsw/src/efsw/platform/posix/ThreadImpl.cpp",
+          "./src/deps/efsw/src/efsw/platform/posix/ThreadImpl.cpp"
+        ],
+        "cflags": [ "-Wall", "-Wno-long-long" ]
+      }],
+      ["OS==\"linux\"", {
+        "sources!": [
+          "./src/deps/efsw/src/efsw/WatcherKqueue.cpp",
+          "./src/deps/efsw/src/efsw/WatcherFSEvents.cpp",
+          "./src/deps/efsw/src/efsw/WatcherWin32.cpp",
           "./src/deps/efsw/src/efsw/FileWatcherKqueue.cpp",
-          "./src/deps/efsw/src/efsw/WatcherKqueue.cpp" 
+          "./src/deps/efsw/src/efsw/FileWatcherWin32.cpp",
+          "./src/deps/efsw/src/efsw/FileWatcherFSEvents.cpp"
+        ],
+        "libraries": [
+          "-lpthread"
+        ],
+        "defines": [
+          "EFSW_VERBOSE"
         ]
       }],
       ["OS==\"mac\"", {
+        "sources!": [
+          "./src/deps/efsw/src/efsw/WatcherInotify.cpp",
+          "./src/deps/efsw/src/efsw/WatcherWin32.cpp",
+          "./src/deps/efsw/src/efsw/FileWatcherInotify.cpp",
+          "./src/deps/efsw/src/efsw/FileWatcherWin32.cpp"
+        ],
         "defines": [
           "EFSW_FSEVENTS_SUPPORTED"
         ],
