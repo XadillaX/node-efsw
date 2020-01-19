@@ -2,7 +2,7 @@
 
 Watching your filesystem events just like [fsevents](https://www.npmjs.com/package/fsevents). But **node-efsw** is cross-platform.
 
-> Node.js binding for [efsw](https://github.com/XadillaX/efsw).
+> Node.js binding for [efsw](https://github.com/SpartanJ/efsw).
 
 ## Installation
 
