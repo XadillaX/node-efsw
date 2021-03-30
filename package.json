@@ -1,6 +1,6 @@
 {
   "name": "efsw",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Node.js binding for efsw.",
   "main": "efsw.js",
   "scripts": {

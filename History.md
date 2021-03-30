@@ -1,4 +1,10 @@
 
+1.0.4 / 2021-03-30
+==================
+
+**others**
+  * [[`78d350f`](http://github.com/XadillaX/node-efsw/commit/78d350f1c80c5d0fc234505ae620905c36636e1d)] - chore: update efsw (XadillaX <<i@2333.moe>>)
+
 1.0.3 / 2020-02-11
 ==================
 
